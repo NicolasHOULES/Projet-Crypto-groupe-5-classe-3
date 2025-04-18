@@ -111,3 +111,47 @@ db_updated.csv doit comporter :
 ## 📜 Licence
 
 Ce projet est distribué sous licence MNMN. Voir LICENSE pour plus de détails.
+
+
+# 🧠 Curvax – Guide d'utilisation
+
+**Curvax** est un outil simple de **chiffrement asymétrique** basé sur une fonction mathématique personnalisée.  
+Ce guide présente uniquement les étapes d’installation et d’utilisation, **sans détailler les mécanismes mathématiques**.
+
+## 📋 Table des matières
+
+- Prérequis  
+- Installation  
+- Structure du projet  
+- Utilisation (CLI)  
+- Fonctions disponibles  
+- Exemple d'exécution  
+- Organisation des fichiers générés  
+- Licence
+
+## 🔧 Prérequis
+
+- **Python** `3.7` ou supérieur  
+- Modules standards : `os`, `json`, `random`
+
+## 🚀 Installation
+
+**1. Cloner le dépôt :**
+
+```bash
+git clone https://github.com/votre-utilisateur/curvax.git
+cd curvax
+
+curvax/
+├── main.py                # Script principal CLI
+└── cles/                  # Dossier contenant les clés .json
+
+python main.py
+
+===== Cryptographie Asymétrique Curvax 🔐 =====
+
+1. Générer une paire de clés  
+2. Chiffrer un message  
+3. Déchiffrer un message  
+4. Quitter
+
