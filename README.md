@@ -1,157 +1,128 @@
-# The VOID - Guide d'utilisation
-**The VOID** est un outil de **chiffrement** de commande conçu pour protéger vos messages. Ce guide présente uniquement les étapes d'installation et d'utilisation, sans entrer dans les détails du mécanisme de chiffrement.
+# 🧪 Projet de Cryptographie Avancée – The Void & Curvax
 
-## 📋 Table des matières
+Bienvenue dans ce projet combiné de **cryptographie avancée**, conçu pour explorer deux approches complémentaires de sécurisation des messages :  
 
-- Prérequis
+- **🔮 The Void** – un système de **chiffrement invisible** basé sur Unicode et des substitutions spéciales.  
+- **🔐 Curvax** – un système de **cryptographie asymétrique** basé sur des courbes mathématiques, du hachage et du bruit aléatoire.
 
-- Installation
+---
 
-- Structure du projet
+## 🌌 Partie 1 : The Void – Chiffrement Invisible
 
-- Utilisation (CLI)
+### 🧠 Concept
 
-- Exemple d'exécution
+**The Void** est un système de chiffrement **stéganographique** : les messages chiffrés ne laissent **aucune trace visible**. Il repose sur des caractères Unicode invisibles (espaces spéciaux, caractères de contrôle) pour représenter chaque caractère du message d'origine, rendant le texte chiffré **invisible à l'œil nu**.
 
-- Organisation des fichiers générés
+### ⚙️ Fonctionnement
 
-- Personnalisation de la base de données
+1. **Conversion** du message en indices basés sur un alphabet étendu (lettres, accents, chiffres, symboles…).
+2. **Encodage** des indices sous forme de motifs Unicode invisibles.
+3. **Décodage** réversible avec la clé fournie.
 
-- Licence
+### 🔐 Sécurité
 
-## 🔧 Prérequis
+- Chaque message est encodé avec une **clé de permutation**.
+- Possibilité de **segmenter** le message chiffré et d'ajouter un encodage spécial.
+- Utilisation facultative de **fichiers `.tokens`** et de **fichiers de clés `.key.json`**.
 
-- **Python** 3.7 ou supérieur
+### 📁 Exemple
 
-Modules standards : os, json, csv, base64, random
+```text
+Message : Bonjour Élodie 💌
+→ Chiffrement invisible (caractères Unicode spéciaux)
+→ Texte apparemment vide mais contenant l'information
+📦 Fichiers générés
+.tokens : contient les séquences invisibles
 
-Fichier db_updated.csv à la racine du projet
+.key.json : contient la clé d'encodage/décodage utilisée
 
-## 🚀 Installation
+🚧 Limites
+L'encodage invisible peut être supprimé par des traitements automatiques (copier/coller, messageries…).
 
-**1. Cloner le dépôt :**
+Le système repose sur des alphabets personnalisés : bien tester avant utilisation dans un environnement tiers.
 
-git clone https://github.com/votre-utilisateur/the-void.git
-cd the-void
+🔐 Partie 2 : Curvax – Cryptographie Asymétrique Complexe
+🧠 Concept
+Curvax est un système de chiffrement asymétrique (à clé publique/clé privée) utilisant une courbe personnalisée pour transformer les caractères. Il introduit une complexité mathématique, du hachage et des coefficients aléatoires pour sécuriser les messages.
 
-**2. (Optionne) Environnement virtuel :**
+🧬 Détail technique
+La courbe est définie ainsi :
 
-python3 -m venv venv
-source venv/bin/activate
+python
+Copier
+Modifier
+f(x) = x^3 + a·x² + b·x + hash(x,a,b) + sin(x)
+Le résultat est pris modulo p (nombre premier).
 
-**3.** Vérifiez la présence de db_updated.csv.
+🔑 Clés
+Clé privée : (a, b, p)
 
-## 🗂 Structure du projet
-the-void/
-├── cryptographie_avancee.py   # Script principal CLI
-├── db_updated.csv            # Base de données des tokens
-├── keys/                     # Clés & métadonnées (.key)
-└── tokens/                   # Messages chiffrés (.tokens)
+Clé publique : (p, [(x, y)]) — points générés pour chaque caractère imprimable (ASCII 32–126)
 
-## 💻 Utilisation (CLI)
+🔒 Chiffrement
+Pour chaque caractère :
 
-Lancez le script :
+x = ord(c)
 
-python cryptographie_avancee.py
+y = courbe(x)
 
-Vous accédez à un menu :
+Choix aléatoire d’un coefficient n
 
-=== Bienvenu sur la cryptographie The VOID ===
-+---------------------------+
-| 1. Chiffrer un message    |
-| 2. Déchiffrer un message  |
-| 3. Quitter                |
-+---------------------------+
+Calcul du point chiffré :
+y_complex = (y * n + n^2) % p
 
+Résultat : (x, y_complex, n)
 
-**1. Chiffrer** : tapez 1, entrez votre texte, puis un nom de base pour générer :
+🔓 Déchiffrement
+Le destinataire utilise la clé privée pour recalculer y, puis vérifie :
 
-- tokens/<nom>.tokens
+python
+Copier
+Modifier
+recalculated = (y * n + n^2) % p
+Si y_complex == recalculated, le caractère est valide.
 
-- keys/<nom>.key
+💾 Fichiers générés
+cles/public_<nom>.json : clé publique
 
-**2. Déchiffrer** : tapez 2, entrez le nom de base utilisé précédemment. Le message original s’affiche.
+cles/private_<nom>.json : clé privée
 
-**Quitter** : tapez 3.
+📂 Exemple de message chiffré
+python
+Copier
+Modifier
+[(72, 34927, 3), (101, 22845, 2), (108, 39211, 7)]
+🚀 Menu interactif
+Lancement :
 
-## 🖥 Exemple d'exécution
+bash
+Copier
+Modifier
+python curvax.py
+Menu :
 
-$ python cryptographie_avancee.py
-Choix: 1
-Entrez le message à chiffrer: Bonjour le monde
-Nom de base des fichiers: mon_secret
--> Fichiers générés:
-   - tokens/mon_secret.tokens
-   - keys/mon_secret.key
-
-$ python cryptographie_avancee.py
-Choix: 2
-Nom de base des fichiers: mon_secret
-Message déchiffré: Bonjour le monde
-
-
-## 📂 Organisation des fichiers générés
-
-- **tokens/** : fichiers .tokens contenant le texte chiffré.
-
-- **keys/** : fichiers .key (JSON) avec les métadonnées nécessaires.
-
-**Remarque** : après un déchiffrement réussi, les fichiers .tokens et .key sont automatiquement supprimés.
-
-## 🛠 Personnalisation de la base de données
-
-db_updated.csv doit comporter :
-
-| Colonne     | Description |
-| ---      | ---       |
-| dimension | taille du segment (NxN) |
-| element_id | identifiant token (4 chiffres) |
-
-
-## 📜 Licence
-
-Ce projet est distribué sous licence MNMN. Voir LICENSE pour plus de détails.
-
-
-# 🧠 Curvax – Guide d'utilisation
-
-**Curvax** est un outil simple de **chiffrement asymétrique** basé sur une fonction mathématique personnalisée.  
-Ce guide présente uniquement les étapes d’installation et d’utilisation, **sans détailler les mécanismes mathématiques**.
-
-## 📋 Table des matières
-
-- Prérequis  
-- Installation  
-- Structure du projet  
-- Utilisation (CLI)  
-- Fonctions disponibles  
-- Exemple d'exécution  
-- Organisation des fichiers générés  
-- Licence
-
-## 🔧 Prérequis
-
-- **Python** `3.7` ou supérieur  
-- Modules standards : `os`, `json`, `random`
-
-## 🚀 Installation
-
-**1. Cloner le dépôt :**
-
-```bash
-git clone https://github.com/votre-utilisateur/curvax.git
-cd curvax
-
-curvax/
-├── main.py                # Script principal CLI
-└── cles/                  # Dossier contenant les clés .json
-
-python main.py
-
-===== Cryptographie Asymétrique Curvax 🔐 =====
-
-1. Générer une paire de clés  
-2. Chiffrer un message  
-3. Déchiffrer un message  
+markdown
+Copier
+Modifier
+1. Générer une paire de clés
+2. Chiffrer un message (complexe)
+3. Déchiffrer un message (complexe)
 4. Quitter
+🧠 Objectif du Projet
+Ce projet a été développé dans un but éducatif et expérimental pour explorer différentes techniques de cryptographie :
 
+The Void : stéganographie invisible
+
+Curvax : asymétrie + mathématiques non standards
+
+⚠️ Ces systèmes ne doivent pas être utilisés tels quels pour des données sensibles ou dans des environnements de production.
+
+📚 Prérequis
+Python 3.x
+
+Modules standards : random, json, os, math, hashlib
+
+✍️ Auteur
+Nicolas Houles
+Étudiant en cybersécurité à Guardia Cyber Security School
+Passionné de cryptographie, sécurité informatique et projets expérimentaux
