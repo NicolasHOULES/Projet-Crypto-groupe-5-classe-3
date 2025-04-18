@@ -1,40 +1,41 @@
-# The VOID - Guide d'utilisation
-**The VOID** est un outil de **chiffrement** de commande conçu pour protéger vos messages. Ce guide présente uniquement les étapes d'installation et d'utilisation, sans entrer dans les détails du mécanisme de chiffrement.
+# 🕳️ The VOID - Guide d'utilisation
+
+**The VOID** est un outil de **chiffrement** de commande conçu pour protéger vos messages.  
+Ce guide présente uniquement les étapes d'installation et d'utilisation, **sans entrer dans les détails du mécanisme de chiffrement**.
+
+---
 
 ## 📋 Table des matières
 
-- Prérequis
+- [🔧 Prérequis](#-prérequis)  
+- [🚀 Installation](#-installation)  
+- [🗂 Structure du projet](#-structure-du-projet)  
+- [💻 Utilisation (CLI)](#-utilisation-cli)  
+- [🖥 Exemple d'exécution](#-exemple-dexécution)  
+- [📂 Organisation des fichiers générés](#-organisation-des-fichiers-générés)  
+- [🛠 Personnalisation de la base de données](#-personnalisation-de-la-base-de-données)  
+- [📜 Licence](#-licence)
 
-- Installation
-
-- Structure du projet
-
-- Utilisation (CLI)
-
-- Exemple d'exécution
-
-- Organisation des fichiers générés
-
-- Personnalisation de la base de données
-
-- Licence
+---
 
 ## 🔧 Prérequis
 
-- **Python** `3.7` ou supérieur
+- **Python** `3.7` ou supérieur  
+- Modules standards : `os`, `json`, `csv`, `base64`, `random`  
+- Fichier **`db_updated.csv`** à la racine du projet
 
-Modules standards : `os`, `json`, `csv`, `base64`, `random`
-
-Fichier `db_updated.csv` à la racine du projet
+---
 
 ## 🚀 Installation
 
-**1. Cloner le dépôt :**
+```bash
+# 1. Cloner le dépôt :
+git clone https://github.com/votre-utilisateur/the-void.git
+cd the-void
 
-`git clone https://github.com/votre-utilisateur/the-void.git
-cd the-void`
-
-**2. (Optionne) Environnement virtuel :**
+# 2. (Optionnel) Créer un environnement virtuel :
+python3 -m venv venv
+source venv/bin/activate
 
 `python3 -m venv venv
 source venv/bin/activate`
