@@ -109,3 +109,5 @@ db_updated.csv doit comporter :
 
 
 ## 📜 Licence
+
+Ce projet est distribué sous licence MNMN. Voir LICENSE pour plus de détails.
