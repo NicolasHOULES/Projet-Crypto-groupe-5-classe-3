@@ -122,7 +122,4 @@ Python 3.x
 
 Modules standards : random, json, os, math, hashlib
 
-✍️ Auteur
-Nicolas Houles
-Étudiant en cybersécurité à Guardia Cyber Security School
-Passionné de cryptographie, sécurité informatique et projets expérimentaux
+
